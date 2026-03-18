@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitops-python-app
+  name: my-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gitops-python
+      app: my-app
   template:
     metadata:
       labels:
-        app: gitops-python
+        app: my-app
     spec:
       containers:
-      - name: gitops-python
-        image: iamsupriya2112/gitops-python-app:v1
+      - name: my-app
+        image: nginx
         ports:
-        - containerPort: 5000
+        - containerPort: 80

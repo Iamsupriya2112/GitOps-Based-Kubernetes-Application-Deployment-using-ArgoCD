@@ -1,12 +1,14 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from flask import Flask
 
-class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type','text/html')
-        self.end_headers()
-        self.wfile.write(b"GitOps Python App Running Successfully!...")
+app = Flask(__name__)
 
-PORT = 5000
-server = HTTPServer(('', PORT), handler)
-server.serve_forever()
+@app.route("/")
+def home():
+    return "🚀 My GitOps App is Running on EKS with ArgoCD!"
+
+@app.route("/health")
+def health():
+    return "OK"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
