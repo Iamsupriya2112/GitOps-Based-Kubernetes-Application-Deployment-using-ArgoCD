@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: iamsupriya2112/my-app1:latest   # <-- your Docker Hub image
+        image: iamsupriya2112/my-app:latest   # <-- your Docker Hub image
         ports:
         - containerPort: 5000
         readinessProbe:
