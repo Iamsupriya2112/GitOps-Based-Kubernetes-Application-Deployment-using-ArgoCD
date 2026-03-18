@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app1
+  name: my-app
   labels:
-    app: my-app1
+    app: my-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-app1
+      app: my-app
   template:
     metadata:
       labels:
-        app: my-app1
+        app: my-app
     spec:
       containers:
-      - name: my-app1
+      - name: my-app
         image: iamsupriya2112/my-app1:latest   # <-- your Docker Hub image
         ports:
         - containerPort: 5000
@@ -38,7 +38,7 @@ metadata:
   name: my-app-service
 spec:
   selector:
-    app: my-app1
+    app: my-app
   type: NodePort
   ports:
     - port: 5000
