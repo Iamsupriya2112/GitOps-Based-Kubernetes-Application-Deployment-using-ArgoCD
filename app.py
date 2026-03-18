@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "🚀 My GitOps App is Running on EKS with ArgoCD!"
+    return "🚀 My New Updated GitOps App is Running on EKS with ArgoCD!"
 
 @app.route("/health")
 def health():
