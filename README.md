@@ -1,48 +1,78 @@
 # Project 5: GitOps-Based Kubernetes Application Deployment using ArgoCD
 
-## Project Overview
+## Project Overview:
 
 This project demonstrates a **GitOps workflow** for Kubernetes applications using **ArgoCD**. All deployments follow GitOps principles:
 
 > "No manual kubectl changes in production. All deployments happen via Git repository updates."
+---
+## Architecture Diagram:
+![Architecture](images/architecture.png)
 
-## Technologies & Tools
+---
+## Technologies & Tools:
 
 * Docker
-* Kubernetes (EKS / Minikube)
+* Kubernetes (EKS)
 * ArgoCD
 * GitHub
+---
 
-## Project Objectives
+## Project Objectives:
 
 1. Containerize the application.
 2. Store Kubernetes manifests in Git.
 3. Configure ArgoCD to monitor the Git repository.
 4. Enable automatic sync on Git commits.
-5. Optional: Helm, Ingress, HPA.
+---
 
-## Project Steps
+## Project Steps:
 
-### 1. Containerization
+### 1. Instance Running:
+- AMI - **Ubuntu**
+- Instance-type - **t2.medium**
+- Key-pair - **Project-5**
+- Security-Group:
+  ```
+  Ports:
+  22
+  80
+  443
+  8080
+  30000-32767
+  ```
+![Instance](images/Instance.png)
+
+### 2. Install Dependencies:
+- Install Docker 
+- Install Kubectl
+- Install Eksctl
+- Install AWS_CLI
+
+### 3. Containerization:
 
 * Dockerfile created.
 * Build image:
 
 ```bash
-docker build -t my-app:latest .
+docker build -t iamsupriya2112/my-app .
 ```
 
 * Push to registry:
 
 ```bash
-docker push <registry_url>/my-app:latest
+docker push iamsupriya2112/my-app
 ```
+![Docker-img](images/Docker-img1.png)
 
-**Screenshots:** Dockerfile, build output, push output.
+### 4. Kubernetes Setup:
 
-### 2. Kubernetes Setup
+* EKS cluster created.
 
-* EKS cluster created (or Minikube).
+![cluster-created](images/EKS-1.png)
+
+AWS-Console:
+![cluster-created](images/EKS-2.png)
 * Deployment YAML (`deployment.yaml`) and Service YAML (`service.yaml`) created.
 * Apply manifests:
 
@@ -57,10 +87,16 @@ kubectl apply -f service.yaml -n my-app
 kubectl get pods -n my-app
 kubectl get svc -n my-app
 ```
+Cluster-Nodes:
+![Cluster-nodes](images/cluster-nodes.png)
 
-**Screenshots:** Cluster nodes, pods running, service status (LoadBalancer / NodePort).
+Pods-Running:
+![Pods-running](images/pod-running.png)
 
-### 3. ArgoCD Installation
+Service-Status:
+![Service-status](images/service-status.png)
+
+### 5. ArgoCD Installation:
 
 * Namespace created:
 
@@ -77,68 +113,61 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 * ArgoCD UI accessed and logged in.
 * New App created pointing to GitHub repo.
 * Sync policy set to **Automatic**.
-  **Screenshots:** ArgoCD pods running, login screen, new app creation, app sync status (Healthy / Synced).
 
-### 4. Git-Based Deployment
+ArgoCD-Pods:
+![ArgoCD-pods](images/argocd-pods.png)
 
-* Modified app code and pushed to GitHub:
+ArgoCD-UI:
+![ArgoCD-UI](images/ArgoCD-UI.png)
 
-```bash
-git add .
-git commit -m "Update app"
-git push origin main
-```
+ArgoCD-New-App:
+![New App](images/New-App.png)
 
+### 6. Git-Based Deployment:
+
+* Modified app code and pushed to GitHub
 * ArgoCD automatically detected changes and deployed to cluster.
 * Verified app in browser:
 
 ```bash
 http://<external-ip>:5000
 ```
+Output:
+![Output](images/Output1.png)
 
-**Screenshots:** Git commit, ArgoCD auto-sync triggered, browser showing running app.
+## 7. Modify Docker Image:
+- Create new Docker image (**my-app1**)
+- Push to registory (**Docker Hub/ECR**)
 
-### 5. Optional Enhancements
+Docker Image:
+![Docker-img](images/Docker-img2.png)
 
-* Helm chart deployment (if implemented)
-* Ingress configuration (if implemented)
-* HPA (Horizontal Pod Autoscaler) (if implemented)
-  **Screenshots (if implemented):** Helm deploy, Ingress config, HPA dashboard.
 
-## Screenshots Checklist
+## 8. Update Manifests Files:
+- Update Manifests Files (**Deployment.yml**, **Service.yml**)
+- Files Push to **Github**
+- ArgoCD automatically detected changes and deployed to cluster.
+* Verified app in browser:
 
-1. Dockerfile content
-2. Docker image build output
-3. Docker push output
-4. `kubectl get nodes` (EKS cluster nodes)
-5. `kubectl get pods -n my-app` (Pods Running)
-6. `kubectl get svc -n my-app` (Service status – LoadBalancer / NodePort)
-7. `kubectl get pods -n argocd` (ArgoCD pods running)
-8. ArgoCD UI login screen
-9. ArgoCD New App creation screen
-10. ArgoCD App sync status (Healthy / Synced)
-11. Git commit of app changes
-12. ArgoCD dashboard showing auto-sync triggered
-13. Browser showing running app (`http://<external-ip>:5000`)
-14. Optional: Helm deployment, Ingress config, HPA dashboard
+```bash
+http://<external-ip>:5000
+```
 
-## GitOps Flow Diagram
+Output:
+![Output](images/Output2.png)
 
-![GitOps Flow](./images/gitops_nodeport_diagram.png)
+---
+## GitOps Flow:
 
 > Flow: GitHub → ArgoCD → EKS → Deployment & NodePort Service → Browser
 
-## Conclusion
+---
+## Conclusion:
 
 * Complete GitOps workflow implemented successfully.
 * CI/CD pipeline is automated: Git commit → ArgoCD auto-sync → Deployment → Browser access.
 * Project requirements fully met, including containerization, Kubernetes deployment, ArgoCD setup, and automatic Git-based deployment.
 
-## Deliverables
-
-1. Dockerfile
-2. Kubernetes YAML files (`deployment.yaml`, `service.yaml`)
-3. ArgoCD configuration (app manifests, Git repo link)
-4. GitHub repository link
-5. Architecture diagram
-6. Screenshots as mentioned in the project requirements
+---
+### Author: Supriya Jadhav
+---
