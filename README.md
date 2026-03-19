@@ -132,6 +132,12 @@ ArgoCD-New-App:
 ```bash
 http://<external-ip>:5000
 ```
+Pods Running:
+![Pods-Running](images/pod-running.png)
+
+Service Status:
+![Service-status](images/service-status.png)
+
 Output:
 ![Output](images/Output1.png)
 
@@ -152,6 +158,11 @@ Docker Image:
 ```bash
 http://<external-ip>:5000
 ```
+Pods Running:
+![Pods-running](images/pod-running.png)
+
+Service Status:
+![Service-status](images/service-status.png)
 
 Output:
 ![Output](images/Output2.png)
