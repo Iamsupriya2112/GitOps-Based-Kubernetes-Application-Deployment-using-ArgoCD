@@ -1,4 +1,4 @@
-# Project 5: GitOps-Based Kubernetes Application Deployment using ArgoCD
+# GitOps-Based Kubernetes Application Deployment using ArgoCD
 
 ## Project Overview:
 
